@@ -1,14 +1,14 @@
-// import { useContext } from "react";
+import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 // import logo from "../assets/logo3.png";
-// import { AuthContext } from "../authprovider/AuthProvider";
+import { AuthContext } from "../authprovider/AuthProvider";
 
 const Navbar = () => {
-  //   const { user, logOut } = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
 
-  //   const handleLogOut = () => {
-  //     logOut().then().catch();
-  //   };
+  const handleLogOut = () => {
+    logOut().then().catch();
+  };
 
   return (
     <div className=" lg:px-10 lg:py-5 bg-base-200">
@@ -133,7 +133,7 @@ const Navbar = () => {
               Login
             </Link>
           </div> */}
-          {/* {user ? (
+          {user ? (
             <button
               //   onClick={handleLogOut}
               className="btn bg-green-400 text-xl text-white font-bold "
@@ -146,7 +146,7 @@ const Navbar = () => {
                 Login
               </button>
             </Link>
-          )} */}
+          )}
         </div>
       </div>
     </div>
