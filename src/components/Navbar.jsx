@@ -90,37 +90,37 @@ const Navbar = () => {
               className={({ isActive }) =>
                 `font-bold ${
                   isActive
-                    ? "text-green-500  bg-white px-3 py-2 rounded-xl"
-                    : "hover:text-green-500"
-                }`
-              }
-              to="/donation-campaign"
-            >
-              Fund Raiser
-            </NavLink>
-            <NavLink
-              className={({ isActive }) =>
-                `font-bold ${
-                  isActive
-                    ? "text-green-500  bg-white px-3 py-2 rounded-xl"
-                    : "hover:text-green-500"
-                }`
-              }
-              to="/how-to-help"
-            >
-              How To Fund
-            </NavLink>
-            <NavLink
-              className={({ isActive }) =>
-                `font-bold ${
-                  isActive
                     ? "text-green-500 bg-white px-3 py-2 rounded-xl"
                     : "hover:text-green-500"
                 }`
               }
-              to="/Dashboard"
+              to="/allcampaign"
             >
-              Dasboard
+              All Campaign
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                `font-bold ${
+                  isActive
+                    ? "text-green-500  bg-white px-3 py-2 rounded-xl"
+                    : "hover:text-green-500"
+                }`
+              }
+              to="/mycampaign"
+            >
+              My Campaign
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                `font-bold ${
+                  isActive
+                    ? "text-green-500  bg-white px-3 py-2 rounded-xl"
+                    : "hover:text-green-500"
+                }`
+              }
+              to="/addnewcampaign"
+            >
+              Add New Campaign
             </NavLink>
           </ul>
         </div>
@@ -134,12 +134,31 @@ const Navbar = () => {
             </Link>
           </div> */}
           {user ? (
-            <button
-              onClick={handleLogOut}
-              className="btn bg-green-400 text-xl text-white font-bold "
-            >
-              Log Out
-            </button>
+            <div className="group relative">
+              <img
+                className="w-[60px] h-[60px] border-4 border-zinc-300 rounded-full cursor-pointer"
+                src={user?.photoURL}
+                alt=""
+              />
+
+              {/* <button
+                onClick={handleLogOut}
+                className="btn bg-green-400 text-xl text-white font-bold "
+              >
+                Log Out
+              </button> */}
+              <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 hidden group-hover:flex flex-col items-center bg-white p-4 rounded-lg shadow-lg w-[200px]">
+                <h3 className="text-xl font-bold text-center text-gray-700">
+                  {user?.displayName}
+                </h3>
+                <button
+                  onClick={handleLogOut}
+                  className="btn bg-green-400 text-lg text-white font-bold"
+                >
+                  Log Out
+                </button>
+              </div>
+            </div>
           ) : (
             <Link to="/login">
               <button className="btn bg-green-400 text-xl text-white font-bold ">
