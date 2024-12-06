@@ -135,7 +135,7 @@ const Navbar = () => {
           </div> */}
           {user ? (
             <button
-              //   onClick={handleLogOut}
+              onClick={handleLogOut}
               className="btn bg-green-400 text-xl text-white font-bold "
             >
               Log Out
