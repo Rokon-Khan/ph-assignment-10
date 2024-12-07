@@ -1,7 +1,65 @@
 import { useContext } from "react";
+import Swal from "sweetalert2";
 import { AuthContext } from "../authprovider/AuthProvider";
 const AddNewCampaign = () => {
   const { user } = useContext(AuthContext);
+
+  const handleAddNewCampaign = (e) => {
+    e.preventDefault();
+
+    const campaignTitle = e.target.campaignTitle.value;
+    const email = e.target.email.value;
+    const userName = e.target.userName.value;
+    const photo = e.target.photo.value;
+    const number = e.target.number.value;
+    const description = e.target.description.value;
+    const campaignType = e.target.campaignType.value;
+    const date = e.target.date.value;
+
+    const addNewCampaign = {
+      campaignTitle,
+      email,
+      userName,
+      photo,
+      number,
+      description,
+      campaignType,
+      date,
+    };
+
+    console.log(addNewCampaign);
+
+    // Send data to the server and database
+    fetch("http://localhost:5000/addnewcampaign", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(addNewCampaign),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.insertedId) {
+          console.log("Successfully added");
+          Swal.fire({
+            title: "Success!",
+            text: "New Campaign added successfully",
+            icon: "success",
+            confirmButtonText: "Ok",
+          });
+          e.target.reset();
+        }
+      })
+      .catch((error) => {
+        console.error("Error adding campaign:", error);
+        Swal.fire({
+          title: "Error!",
+          text: "Failed to add campaign. Please try again later.",
+          icon: "error",
+          confirmButtonText: "Ok",
+        });
+      });
+  };
   return (
     <div>
       <div className="w-full h-[250px] bg-green-600 text-center text-white space-y-3  py-6">
@@ -14,7 +72,7 @@ const AddNewCampaign = () => {
         </p>
       </div>
       <div className="card bg-base-100 w-full lg:max-w-screen-lg max-w-sm mx-auto my-10 shrink-0 shadow-2xl">
-        <form className="card-body">
+        <form onSubmit={handleAddNewCampaign} className="card-body">
           {/* Title Row & Photo Row*/}
           <div className="grid lg:grid-cols-2 grid-cols-1 gap-6">
             <div className="form-control">
@@ -23,7 +81,7 @@ const AddNewCampaign = () => {
               </label>
               <input
                 type="text"
-                name="text"
+                name="campaignTitle"
                 placeholder="Write Your Campaign Title"
                 className="input input-bordered"
                 required
@@ -51,7 +109,9 @@ const AddNewCampaign = () => {
                 </div>
                 <select
                   className="select select-bordered"
+                  name="campaignType"
                   defaultValue="default"
+                  required
                 >
                   <option value="default" disabled>
                     Select a Campaign
@@ -74,10 +134,13 @@ const AddNewCampaign = () => {
                     Write your Campaign Description
                   </span>
                 </div>
-                <textarea
-                  className="textarea textarea-bordered h-24"
+                <input
+                  type="text"
+                  name="description"
                   placeholder="Write Your Campaign Description"
-                ></textarea>
+                  className="input input-bordered"
+                  required
+                />
               </label>
             </div>
           </div>
@@ -130,7 +193,7 @@ const AddNewCampaign = () => {
               <input
                 type="text"
                 required
-                name="name"
+                name="userName"
                 readOnly
                 defaultValue={user?.displayName}
                 placeholder="Your Name"
