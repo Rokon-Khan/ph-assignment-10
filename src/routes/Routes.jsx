@@ -4,7 +4,6 @@ import AddNewCampaign from "../pages/AddNewCampaign";
 import AllCampaign from "../pages/Allcampaign";
 import Error from "../pages/Error";
 import ForgetPassword from "../pages/ForgetPassword";
-
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import MyCampaign from "../pages/MyCampaign";
@@ -52,6 +51,18 @@ const router = createBrowserRouter([
       },
     ],
   },
+  // {
+  //   path: "/addnewcampaign",
+  //   element: <MainLaout></MainLaout>,
+  //   children: [
+  //     {
+  //       path: "/addnewcampaign",
+  //       element: <AddNewCampaign></AddNewCampaign>,
+  //       loader: ({ params }) =>
+  //         fetch(`http://localhost:5000/users/${params.id}`),
+  //     },
+  //   ],
+  // },
   {
     path: "/addnewcampaign",
     element: <MainLaout></MainLaout>,
@@ -59,6 +70,7 @@ const router = createBrowserRouter([
       {
         path: "/addnewcampaign",
         element: <AddNewCampaign></AddNewCampaign>,
+        loader: () => fetch("http://localhost:5000/users"),
       },
     ],
   },

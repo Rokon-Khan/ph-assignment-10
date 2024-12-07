@@ -119,6 +119,7 @@ const Navbar = () => {
                 }`
               }
               to="/addnewcampaign"
+              // to={`/addcampaign/${user?.id}`}
             >
               Add New Campaign
             </NavLink>
