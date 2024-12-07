@@ -7,6 +7,7 @@ import {
 import { useContext, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import { AuthContext } from "../authprovider/AuthProvider";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
@@ -21,18 +22,89 @@ const Register = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleRegister = (e) => {
-    e.preventDefault();
-    console.log(e.currentTarget);
-    const form = new FormData(e.currentTarget);
+  // const handleRegister = (e) => {
+  //   e.preventDefault();
+  //   console.log(e.currentTarget);
+  //   const form = new FormData(e.currentTarget);
 
+  //   const name = form.get("name");
+  //   const photo = form.get("photo");
+  //   const email = form.get("email");
+  //   const password = form.get("password");
+  //   console.log(name, photo, email, password);
+
+  //   // reset error and status
+  //   const regex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+  //   setErrorMessage("");
+  //   setSuccess(false);
+
+  //   if (password.length < 6) {
+  //     setErrorMessage("Password should be 6 characters or longer");
+  //     return;
+  //   }
+
+  //   if (!regex.test(password)) {
+  //     setErrorMessage(
+  //       "At least one uppercase, one lowercase,and More Than 6 character"
+  //     );
+  //     return;
+  //   }
+
+  //   // create user
+  //   createUser(email, password)
+  //     .then((result) => {
+  //       if (result.user) {
+  //         updateProfile(auth.currentUser, {
+  //           displayName: name,
+  //           photoURL: photo,
+  //         })
+  //           .then(() => {
+  //             // Profile updated!
+  //             navigate(location?.state ? location.state : "/");
+  //           })
+  //           .catch((error) => {
+  //             // An error occurred
+  //             // ...
+  //           });
+  //       }
+
+  //       console.log(result.user);
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+
+  //   fetch("http://localhost:5000/users", {
+  //     method: "POST",
+  //     headers: {
+  //       "content-type": "application/json",
+  //     },
+  //     body: JSON.stringify(user),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //       if (data.insertedId) {
+  //         Swal.fire({
+  //           title: "Wow!!!",
+  //           text: "User Added Successfully!",
+  //           icon: "success",
+  //         });
+  //         // alert("User Added Successfully");
+  //         form.reset();
+  //       }
+  //     });
+  // };
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+
+    const form = new FormData(e.currentTarget);
     const name = form.get("name");
     const photo = form.get("photo");
     const email = form.get("email");
     const password = form.get("password");
-    console.log(name, photo, email, password);
 
-    // reset error and status
     const regex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
     setErrorMessage("");
     setSuccess(false);
@@ -44,59 +116,135 @@ const Register = () => {
 
     if (!regex.test(password)) {
       setErrorMessage(
-        "At least one uppercase, one lowercase,and More Than 6 character"
+        "At least one uppercase, one lowercase, and more than 6 characters"
       );
       return;
     }
 
-    // create user
-    createUser(email, password)
-      .then((result) => {
-        if (result.user) {
-          updateProfile(auth.currentUser, {
-            displayName: name,
-            photoURL: photo,
-          })
-            .then(() => {
-              // Profile updated!
-              navigate(location?.state ? location.state : "/");
-            })
-            .catch((error) => {
-              // An error occurred
-              // ...
-            });
-        }
+    try {
+      // Create Firebase user
+      const result = await createUser(email, password);
+      const firebaseUser = result.user;
 
-        console.log(result.user);
-      })
-      .catch((error) => {
-        console.error(error);
+      // Update profile
+      await updateProfile(auth.currentUser, {
+        displayName: name,
+        photoURL: photo,
       });
-  };
 
-  const handleSigWithGoogle = () => {
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        // The signed-in user info.
-        const user = result.user;
-        // IdP data available using getAdditionalUserInfo(result)
-        // ...
+      // Prepare user object for MongoDB
+      const newUser = {
+        uid: firebaseUser.uid,
+        name,
+        photo,
+        email,
+      };
+
+      // Add user to MongoDB
+      const response = await fetch("http://localhost:5000/users", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(newUser),
+      });
+
+      const data = await response.json();
+      if (data.insertedId) {
+        Swal.fire({
+          title: "Wow!!!",
+          text: "User Added Successfully!",
+          icon: "success",
+        });
+        // form.reset();
         navigate(location?.state ? location.state : "/");
-      })
-      .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.customData.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
-      });
+      }
+    } catch (error) {
+      console.error("Error during registration:", error);
+      setErrorMessage(error.message);
+    }
   };
+
+  const handleSignWithGoogle = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const firebaseUser = result.user;
+
+      // Prepare user object for MongoDB
+      const newUser = {
+        uid: firebaseUser.uid,
+        name: firebaseUser.displayName,
+        photo: firebaseUser.photoURL,
+        email: firebaseUser.email,
+      };
+
+      // Add user to MongoDB
+      const response = await fetch("http://localhost:5000/users", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(newUser),
+      });
+
+      const data = await response.json();
+      if (data.insertedId) {
+        Swal.fire({
+          title: "Wow!!!",
+          text: "User Added Successfully!",
+          icon: "success",
+        });
+        navigate(location?.state ? location.state : "/");
+      }
+    } catch (error) {
+      console.error("Error during Google sign-in:", error);
+      setErrorMessage(error.message);
+    }
+  };
+
+  // const handleSignWithGoogle = () => {
+  //   signInWithPopup(auth, provider)
+  //     .then((result) => {
+  //       // This gives you a Google Access Token. You can use it to access the Google API.
+  //       const credential = GoogleAuthProvider.credentialFromResult(result);
+  //       const token = credential.accessToken;
+  //       // The signed-in user info.
+  //       const user = result.user;
+  //       // IdP data available using getAdditionalUserInfo(result)
+  //       // ...
+  //       navigate(location?.state ? location.state : "/");
+  //     })
+  //     .catch((error) => {
+  //       // Handle Errors here.
+  //       const errorCode = error.code;
+  //       const errorMessage = error.message;
+  //       // The email of the user's account used.
+  //       const email = error.customData.email;
+  //       // The AuthCredential type that was used.
+  //       const credential = GoogleAuthProvider.credentialFromError(error);
+  //       // ...
+  //     });
+  //   fetch("http://localhost:5000/users", {
+  //     method: "POST",
+  //     headers: {
+  //       "content-type": "application/json",
+  //     },
+  //     body: JSON.stringify(user),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //       if (data.insertedId) {
+  //         Swal.fire({
+  //           title: "Wow!!!",
+  //           text: "User Added Successfully!",
+  //           icon: "success",
+  //         });
+  //         // alert("User Added Successfully");
+  //         form.reset();
+  //       }
+  //     });
+  // };
 
   return (
     <div className="space-y-10">
@@ -153,12 +301,12 @@ const Register = () => {
               placeholder="Password"
               className="input input-bordered"
             />
-            <button
+            <p
               onClick={() => setShowPassword(!showPassword)}
               className="btn btn-xs absolute right-2 top-12"
             >
               {showPassword ? <FaEyeSlash></FaEyeSlash> : <FaEye></FaEye>}
-            </button>
+            </p>
           </div>
           <div className="form-control mt-6 space-y-4">
             <button className="btn btn-success text-xl text-white font-bold">
@@ -169,7 +317,7 @@ const Register = () => {
           {success && <p className="text-green-600">Register is Successful.</p>}
         </form>
         <button
-          onClick={handleSigWithGoogle}
+          onClick={handleSignWithGoogle}
           className="btn btn-full btn-success text-xl text-white font-bold my-4"
         >
           Register With Google
