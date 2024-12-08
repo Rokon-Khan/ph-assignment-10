@@ -19,9 +19,16 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
+        // loader: async () => await fetch("http://localhost:5000/addnewcampaign"),
+        loader: async () => {
+          const response = await fetch("http://localhost:5000/addnewcampaign");
+          const data = await response.json();
+          return data; // Ensure the data is an array of campaigns
+        },
       },
     ],
   },
+
   {
     path: "/allcampaign",
     element: <MainLaout></MainLaout>,
@@ -29,6 +36,7 @@ const router = createBrowserRouter([
       {
         path: "/allcampaign",
         element: <AllCampaign></AllCampaign>,
+        loader: () => fetch("http://localhost:5000/addnewcampaign"),
       },
     ],
   },
@@ -60,18 +68,6 @@ const router = createBrowserRouter([
       },
     ],
   },
-  // {
-  //   path: "/addnewcampaign",
-  //   element: <MainLaout></MainLaout>,
-  //   children: [
-  //     {
-  //       path: "/addnewcampaign",
-  //       element: <AddNewCampaign></AddNewCampaign>,
-  //       loader: ({ params }) =>
-  //         fetch(`http://localhost:5000/users/${params.id}`),
-  //     },
-  //   ],
-  // },
   {
     path: "/addnewcampaign",
     element: <MainLaout></MainLaout>,
