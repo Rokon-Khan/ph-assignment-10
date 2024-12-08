@@ -1,7 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLaout from "../layout/MainLayout";
 import AddNewCampaign from "../pages/AddNewCampaign";
-import AllCampaign from "../pages/Allcampaign";
+import AllCampaign from "../pages/AllCampaign";
+import DetailCampain from "../pages/DetailCampain";
 import Error from "../pages/Error";
 import ForgetPassword from "../pages/ForgetPassword";
 import Home from "../pages/Home";
@@ -70,6 +71,25 @@ const router = createBrowserRouter([
             <MyDonation></MyDonation>,
           </PrivateRoute>
         ),
+      },
+    ],
+  },
+  {
+    path: "/detailcampaign",
+    element: <MainLaout></MainLaout>,
+    children: [
+      {
+        path: "/detailcampaign:id",
+        element: (
+          <PrivateRoute>
+            <DetailCampain></DetailCampain>,
+          </PrivateRoute>
+        ),
+        loader: async () => {
+          const response = await fetch("http://localhost:5000/addnewcampaign");
+          const data = await response.json();
+          return data;
+        },
       },
     ],
   },

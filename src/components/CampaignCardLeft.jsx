@@ -1,8 +1,8 @@
+/* eslint-disable react/prop-types */
 import { GoArrowUpRight } from "react-icons/go";
 import { Link } from "react-router-dom";
 const CampaignCardLeft = ({ campaignItem }) => {
-  const { id, campaignTitle, photo, description, campaignType, date } =
-    campaignItem || {};
+  const { _id, campaignTitle, photo, description } = campaignItem || {};
   return (
     <div>
       <div className="hero card bg-base-200 max-w-[1024px] my-8 mx-auto">
@@ -14,23 +14,14 @@ const CampaignCardLeft = ({ campaignItem }) => {
             <h1 className="text-3xl font-bold">
               Campaign Name: {campaignTitle}
             </h1>
-            {/* <h2 className="text-xl font-semibold">
-              <span className="font-bold">Division:</span> {division}
-            </h2>
-            <h2 className="text-xl font-semibold">
-              <span className="text-lg font-bold">Status:</span> {status}
-            </h2> */}
-            {/* <h2 className="text-lg font-light">
-              <span className="font-bold">Contact-Info: </span>
-              {contactInfo}
-            </h2> */}
-            <p> {description}</p>
+
+            <p className="font-base"> {description}</p>
 
             <Link
-              to={`/donation-detail/${id}`}
+              to={`/detailcampaign/${_id}`}
               className="btn bg-green-500 text-xl font-bold text-white"
             >
-              Donate Now
+              See Detail
               <GoArrowUpRight className="text-3xl font-bold text-green-500 rounded-full bg-white" />
             </Link>
           </div>

@@ -66,7 +66,7 @@ const AddNewCampaign = () => {
         <h2 className="text-3xl font-bold">Add New Campaign</h2>
         <p className=" max-w-[796px] mx-auto">
           Ready to make a difference? Start your own crowdfunding campaign
-          today! Whether it's a personal cause, a community initiative, a
+          today! Whether its a personal cause, a community initiative, a
           creative project, or a life-changing event, our platform empowers you
           to bring your vision to life.
         </p>
