@@ -10,6 +10,7 @@ import Login from "../pages/Login";
 import MyCampaign from "../pages/MyCampaigns";
 import MyDonation from "../pages/MyDonation";
 import Register from "../pages/Register";
+import UpdateCampaign from "../pages/updateCampaign";
 import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
@@ -57,6 +58,30 @@ const router = createBrowserRouter([
             <MyCampaign></MyCampaign>,
           </PrivateRoute>
         ),
+        loader: async () => {
+          const response = await fetch("http://localhost:5000/addnewcampaign");
+          const data = await response.json();
+          return data;
+        },
+      },
+    ],
+  },
+  {
+    path: "/updateCampaign",
+    element: <MainLaout></MainLaout>,
+    children: [
+      {
+        path: "/updateCampaign/:id",
+        element: (
+          <PrivateRoute>
+            <UpdateCampaign />,
+          </PrivateRoute>
+        ),
+        loader: async () => {
+          const response = await fetch("http://localhost:5000/addnewcampaign");
+          const data = await response.json();
+          return data;
+        },
       },
     ],
   },

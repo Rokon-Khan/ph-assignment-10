@@ -1,8 +1,9 @@
 import { useContext, useEffect, useState } from "react";
-import { IoMdStarHalf } from "react-icons/io";
-import { MdOutlineStarPurple500 } from "react-icons/md";
+import { GoArrowUpRight } from "react-icons/go";
+import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 import { AuthContext } from "../authprovider/AuthProvider";
-
+//
 const MyCampaigns = () => {
   const { user } = useContext(AuthContext);
   const [campaigns, setCampaigns] = useState([]);
@@ -25,52 +26,77 @@ const MyCampaigns = () => {
     fetchCampaigns();
   }, [user]);
 
+  const handleDelte = (_id) => {
+    console.log("Delete", _id);
+    fetch(`http://localhost:5000/addnewcampaign/${_id}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.deletedCount > 0) {
+          Swal.fire({
+            title: "Done!!!",
+            text: "Campaign Deleted Successfully!",
+            icon: "success",
+          });
+          const remaining = campaigns.filter((camp) => camp._id !== _id);
+          setCampaigns(remaining);
+        }
+      })
+      .catch((error) => {
+        console.error("Error deleting campaign:", error);
+        Swal.fire({
+          title: "Error",
+          text: "Failed to delete the campaign.",
+          icon: "error",
+        });
+      });
+  };
+
   return (
     <div>
-      <h1>My Campaigns</h1>
       {campaigns.length > 0 ? (
         campaigns.map((campaign) => (
-          <div
-            key={campaign._id}
-            className="hero max-w-[1020px] bg-base-200 mx-auto rounded-xl my-6"
-          >
-            <div className="hero-content flex-col lg:flex-row gap-6">
-              <img
-                className="lg:max-w-[424px] lg:max-h-[503px] max-w-[300px] max-h-[300px] rounded-2xl"
-                src={campaign?.photo}
-              />
-              <div className="space-y-3">
-                <h2 className="text-3xl semi-bold">
-                  {campaign?.campaignTitle}
-                </h2>
-
-                <span className="badge bg-[rgba(47,156,8,0.1)] p-3 font-bold">
-                  Status: Running
-                </span>
-                <h1 className="text-2xl md:text-lg">
-                  Campaign Detail: {campaign?.description}
-                </h1>
-                <h1 className="text-2xl md:text-lg">
-                  Campaign Duration: {campaign?.date}
-                </h1>
-
-                <h4 className="text-xl font-bold flex gap-2 justify-start items-center">
-                  Public Rating: 4.9
-                  <span className="text-yellow-400 font-bold flex gap-2">
-                    <MdOutlineStarPurple500 />
-                    <MdOutlineStarPurple500 />
-                    <MdOutlineStarPurple500 />
-                    <MdOutlineStarPurple500 />
-                    <IoMdStarHalf />
-                  </span>
-                </h4>
-              </div>
-            </div>
+          <div key={campaign._id} className="overflow-x-auto">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th className="text-xl font-bold">Campaign Name</th>
+                  <th className="text-xl font-bold">Status</th>
+                  <th className="text-xl font-bold">Deadline Date </th>
+                  <th className="text-xl font-bold">Update</th>
+                  <th className="text-xl font-bold">Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="text-xl font-bold">
+                    {campaign?.campaignTitle}
+                  </td>
+                  <td className="text-xl font-bold">Running</td>
+                  <td className="text-xl font-bold">{campaign?.date}</td>
+                  <td>
+                    <Link
+                      to={`/updateCampaign/${campaign?._id}`}
+                      className="btn items-center flex-nowrap bg-green-500 text-lg font-bold text-white"
+                    >
+                      Update
+                      <GoArrowUpRight className="text-2xl font-bold text-green-500 rounded-full bg-white" />
+                    </Link>
+                  </td>
+                  <td>
+                    <button
+                      onClick={() => handleDelte(campaign._id)}
+                      className="btn btn-error text-lg font-bold text-white"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-          // <div key={campaign._id}>
-          //   <h2>{campaign.campaignTitle}</h2>
-          //   <p>{campaign.description}</p>
-          // </div>
         ))
       ) : (
         <p className="text-3xl font-bold text-center max-w-[1024px] mx-auto bg-slate-300 py-4 rounded-lg">
