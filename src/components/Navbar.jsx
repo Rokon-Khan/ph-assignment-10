@@ -181,7 +181,7 @@ const Navbar = () => {
             </Link>
           </div> */}
           {user ? (
-            <div className="group relative">
+            <div className="group relative z-10">
               <img
                 className="w-[60px] h-[60px] border-4 border-zinc-300 rounded-full cursor-pointer"
                 src={user?.photoURL}

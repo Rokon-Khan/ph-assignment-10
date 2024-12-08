@@ -27,31 +27,47 @@ const MyCampaigns = () => {
   }, [user]);
 
   const handleDelte = (_id) => {
-    console.log("Delete", _id);
-    fetch(`http://localhost:5000/addnewcampaign/${_id}`, {
-      method: "DELETE",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        if (data.deletedCount > 0) {
-          Swal.fire({
-            title: "Done!!!",
-            text: "Campaign Deleted Successfully!",
-            icon: "success",
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:5000/addnewcampaign/${_id}`, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.deletedCount > 0) {
+              Swal.fire({
+                title: "Done!!!",
+                text: "Campaign Deleted Successfully!",
+                icon: "success",
+              });
+              const remaining = campaigns.filter((camp) => camp._id !== _id);
+              setCampaigns(remaining);
+            } else {
+              Swal.fire({
+                title: "Error",
+                text: "Failed to delete the campaign.",
+                icon: "error",
+              });
+            }
+          })
+          .catch((error) => {
+            console.error("Error deleting campaign:", error);
+            Swal.fire({
+              title: "Error",
+              text: "Failed to delete the campaign.",
+              icon: "error",
+            });
           });
-          const remaining = campaigns.filter((camp) => camp._id !== _id);
-          setCampaigns(remaining);
-        }
-      })
-      .catch((error) => {
-        console.error("Error deleting campaign:", error);
-        Swal.fire({
-          title: "Error",
-          text: "Failed to delete the campaign.",
-          icon: "error",
-        });
-      });
+      }
+    });
   };
 
   return (
