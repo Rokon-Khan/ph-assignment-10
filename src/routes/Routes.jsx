@@ -36,7 +36,12 @@ const router = createBrowserRouter([
       {
         path: "/allcampaign",
         element: <AllCampaign></AllCampaign>,
-        loader: () => fetch("http://localhost:5000/addnewcampaign"),
+        // loader: () => fetch("http://localhost:5000/addnewcampaign"),
+        loader: async () => {
+          const response = await fetch("http://localhost:5000/addnewcampaign");
+          const data = await response.json();
+          return data; // Ensure the data is an array of campaigns
+        },
       },
     ],
   },
