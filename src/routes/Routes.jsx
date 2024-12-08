@@ -7,7 +7,7 @@ import Error from "../pages/Error";
 import ForgetPassword from "../pages/ForgetPassword";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
-import MyCampaign from "../pages/MyCampaign";
+import MyCampaign from "../pages/MyCampaigns";
 import MyDonation from "../pages/MyDonation";
 import Register from "../pages/Register";
 import PrivateRoute from "./PrivateRoute";
