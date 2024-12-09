@@ -21,9 +21,11 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
-        // loader: async () => await fetch("http://localhost:5000/addnewcampaign"),
+        // loader: async () => await fetch("https://ph-assignment-server-10.vercel.app/addnewcampaign"),
         loader: async () => {
-          const response = await fetch("http://localhost:5000/addnewcampaign");
+          const response = await fetch(
+            "https://ph-assignment-server-10.vercel.app/addnewcampaign"
+          );
           const data = await response.json();
           return data; // Ensure the data is an array of campaigns
         },
@@ -38,9 +40,11 @@ const router = createBrowserRouter([
       {
         path: "/allcampaign",
         element: <AllCampaign></AllCampaign>,
-        // loader: () => fetch("http://localhost:5000/addnewcampaign"),
+        // loader: () => fetch("https://ph-assignment-server-10.vercel.app/addnewcampaign"),
         loader: async () => {
-          const response = await fetch("http://localhost:5000/addnewcampaign");
+          const response = await fetch(
+            "https://ph-assignment-server-10.vercel.app/addnewcampaign"
+          );
           const data = await response.json();
           return data; // Ensure the data is an array of campaigns
         },
@@ -59,7 +63,9 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: async () => {
-          const response = await fetch("http://localhost:5000/addnewcampaign");
+          const response = await fetch(
+            "https://ph-assignment-server-10.vercel.app/addnewcampaign"
+          );
           const data = await response.json();
           return data;
         },
@@ -78,7 +84,9 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: async () => {
-          const response = await fetch("http://localhost:5000/addnewcampaign");
+          const response = await fetch(
+            "https://ph-assignment-server-10.vercel.app/addnewcampaign"
+          );
           const data = await response.json();
           return data;
         },
@@ -111,7 +119,9 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: async () => {
-          const response = await fetch("http://localhost:5000/addnewcampaign");
+          const response = await fetch(
+            "https://ph-assignment-server-10.vercel.app/addnewcampaign"
+          );
           const data = await response.json();
           return data;
         },
@@ -129,7 +139,7 @@ const router = createBrowserRouter([
             <AddNewCampaign></AddNewCampaign>,
           </PrivateRoute>
         ),
-        loader: () => fetch("http://localhost:5000/users"),
+        loader: () => fetch("https://ph-assignment-server-10.vercel.app/users"),
       },
     ],
   },

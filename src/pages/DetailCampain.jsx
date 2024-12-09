@@ -15,7 +15,7 @@ const DetailCampain = () => {
     const singleCampaign = data.find((campaign) => campaign._id == id);
     setCampaigns(singleCampaign);
   }, [data, id]);
-  const { campaignTitle, photo, description, date } = campaigns || {};
+  const { campaignTitle, photo, description, date, number } = campaigns || {};
   return (
     <div>
       <div className="hero max-w-[1020px] bg-base-200 mx-auto rounded-xl my-6">
@@ -33,7 +33,12 @@ const DetailCampain = () => {
             <h1 className="text-2xl md:text-lg">
               Campaign Detail: {description}
             </h1>
-            <h1 className="text-2xl md:text-lg">Campaign Duration: {date}</h1>
+            <h1 className="text-2xl md:text-lg font-bold">
+              Campaign Duration: {date}
+            </h1>
+            <h1 className="text-2xl md:text-lg font-bold">
+              Target Amount: ${number}
+            </h1>
 
             <h4 className="text-xl font-bold flex gap-2 justify-start items-center">
               Public Rating: 4.9

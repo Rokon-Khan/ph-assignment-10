@@ -14,7 +14,7 @@ const MyCampaigns = () => {
 
       try {
         const response = await fetch(
-          `http://localhost:5000/addnewcampaign?email=${user.email}`
+          `https://ph-assignment-server-10.vercel.app/addnewcampaign?email=${user.email}`
         );
         const data = await response.json();
         setCampaigns(data);
@@ -37,9 +37,12 @@ const MyCampaigns = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/addnewcampaign/${_id}`, {
-          method: "DELETE",
-        })
+        fetch(
+          `https://ph-assignment-server-10.vercel.app/addnewcampaign/${_id}`,
+          {
+            method: "DELETE",
+          }
+        )
           .then((res) => res.json())
           .then((data) => {
             if (data.deletedCount > 0) {

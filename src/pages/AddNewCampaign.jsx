@@ -30,7 +30,7 @@ const AddNewCampaign = () => {
     console.log(addNewCampaign);
 
     // Send data to the server and database
-    fetch("http://localhost:5000/addnewcampaign", {
+    fetch("https://ph-assignment-server-10.vercel.app/addnewcampaign", {
       method: "POST",
       headers: {
         "content-type": "application/json",

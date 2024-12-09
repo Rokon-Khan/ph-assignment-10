@@ -74,7 +74,7 @@ const Register = () => {
   //       console.error(error);
   //     });
 
-  //   fetch("http://localhost:5000/users", {
+  //   fetch("https://ph-assignment-server-10.vercel.app/users", {
   //     method: "POST",
   //     headers: {
   //       "content-type": "application/json",
@@ -141,13 +141,16 @@ const Register = () => {
       };
 
       // Add user to MongoDB
-      const response = await fetch("http://localhost:5000/users", {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(newUser),
-      });
+      const response = await fetch(
+        "https://ph-assignment-server-10.vercel.app/users",
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(newUser),
+        }
+      );
 
       const data = await response.json();
       if (data.insertedId) {
@@ -179,13 +182,16 @@ const Register = () => {
       };
 
       // Add user to MongoDB
-      const response = await fetch("http://localhost:5000/users", {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(newUser),
-      });
+      const response = await fetch(
+        "https://ph-assignment-server-10.vercel.app/users",
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(newUser),
+        }
+      );
 
       const data = await response.json();
       if (data.insertedId) {
@@ -224,7 +230,7 @@ const Register = () => {
   //       const credential = GoogleAuthProvider.credentialFromError(error);
   //       // ...
   //     });
-  //   fetch("http://localhost:5000/users", {
+  //   fetch("https://ph-assignment-server-10.vercel.app/users", {
   //     method: "POST",
   //     headers: {
   //       "content-type": "application/json",

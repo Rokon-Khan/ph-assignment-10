@@ -32,13 +32,16 @@ const UpdateCampaign = () => {
     console.log(addNewCampaign);
 
     // Send data to the server and database
-    fetch(`http://localhost:5000/addnewcampaign/${productId}`, {
-      method: "PUT",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(addNewCampaign),
-    })
+    fetch(
+      `https://ph-assignment-server-10.vercel.app/addnewcampaign/${productId}`,
+      {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(addNewCampaign),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -207,7 +210,7 @@ const UpdateCampaign = () => {
 
           <div className="form-control mt-6">
             <button className="btn bg-green-500 text-xl font-bold text-white">
-              Add New Campaign
+              Update Campaign
             </button>
           </div>
         </form>
