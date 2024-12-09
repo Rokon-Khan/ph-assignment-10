@@ -1,4 +1,4 @@
-# PH-Assignment-10 Fund Raiser Campaign With Firebase Authentication & MongoDB Crud
+# PH-Assignment-10 Fund Raiser Campaign With Firebase Authentication & MongoDB CRUD
 
 # https://ph-assignment-fund-raiser-campaign.surge.sh/
 
