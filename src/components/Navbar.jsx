@@ -155,7 +155,7 @@ const Navbar = () => {
             >
               My Campaign
             </NavLink>
-            <NavLink
+            {/* <NavLink
               className={({ isActive }) =>
                 `font-bold ${
                   isActive
@@ -166,7 +166,7 @@ const Navbar = () => {
               to="/mydonation"
             >
               My Donation
-            </NavLink>
+            </NavLink> */}
             <NavLink
               className={({ isActive }) =>
                 `font-bold ${
@@ -179,6 +179,32 @@ const Navbar = () => {
               // to={`/addcampaign/${user?.id}`}
             >
               Add New Campaign
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                `font-bold ${
+                  isActive
+                    ? "text-green-500  bg-white px-3 py-2 rounded-xl"
+                    : "hover:text-green-500"
+                }`
+              }
+              to="/about-us"
+              // to={`/addcampaign/${user?.id}`}
+            >
+              About Us
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                `font-bold ${
+                  isActive
+                    ? "text-green-500  bg-white px-3 py-2 rounded-xl"
+                    : "hover:text-green-500"
+                }`
+              }
+              to="/contact-us"
+              // to={`/addcampaign/${user?.id}`}
+            >
+              Contact Us
             </NavLink>
           </ul>
         </div>

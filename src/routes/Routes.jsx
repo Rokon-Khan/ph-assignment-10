@@ -1,7 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLaout from "../layout/MainLayout";
+import AboutUs from "../pages/AboutUs";
 import AddNewCampaign from "../pages/AddNewCampaign";
 import AllCampaign from "../pages/AllCampaign";
+import ContactUs from "../pages/ContactUs";
 import CookiePolicy from "../pages/CookiePolicy";
 import DetailCampain from "../pages/DetailCampain";
 import Error from "../pages/Error";
@@ -189,6 +191,26 @@ const router = createBrowserRouter([
       {
         path: "/cookie-policy",
         element: <CookiePolicy></CookiePolicy>,
+      },
+    ],
+  },
+  {
+    path: "/contact-us",
+    element: <MainLaout></MainLaout>,
+    children: [
+      {
+        path: "/contact-us",
+        element: <ContactUs></ContactUs>,
+      },
+    ],
+  },
+  {
+    path: "/about-us",
+    element: <MainLaout></MainLaout>,
+    children: [
+      {
+        path: "/about-us",
+        element: <AboutUs></AboutUs>,
       },
     ],
   },
