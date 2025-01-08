@@ -5,8 +5,7 @@
 # https://ph-assignment-fund-raiser-campaign.surge.sh/
 
 <div>
-  
-  <img height="300" src="https://i.ibb.co.com/L1n4Yb8/React-JS.jpg](https://i.ibb.co.com/MfHz8NH/Ph-A-10-Fund-Raiser-1.png"  />
+  <img height="300" src="https://i.ibb.co.com/MfHz8NH/Ph-A-10-Fund-Raiser-1.png" />
 </div>
 
 
