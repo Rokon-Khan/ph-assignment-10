@@ -1,44 +1,193 @@
-# PH-Assignment-10 Fund Raiser Campaign With Firebase Authentication & MongoDB CRUD
-## New Live Link
-# https://ph-assignment-fund-raiser-project.surge.sh/
-## Old Live Link
-# https://ph-assignment-fund-raiser-campaign.surge.sh/
+# 🎗️ PH-Assignment-10 - Fund Raiser Campaign  
 
-<div>
+🚀 **New Live Link:** [Fund Raiser Campaign](https://ph-assignment-fund-raiser-project.surge.sh/)  
+🔗 **Old Live Link:** [Previous Version](https://ph-assignment-fund-raiser-campaign.surge.sh/)  
+
+<div align="center">
   <img height="300" src="https://i.ibb.co.com/MfHz8NH/Ph-A-10-Fund-Raiser-1.png" />
 </div>
 
+---
 
-## The Short Description of the PH-Assignment-10 CRUD Application
-- A strategic effort to collect financial contributions for a specific cause or initiative, often through events, online platforms, or community outreach. These campaigns aim to generate support for projects like education, healthcare, disaster relief, or innovation.
+## 📖 Overview  
 
-## Purpose of the Fund Raiser Campaign Website
+The **Fund Raiser Campaign** is an online platform designed to facilitate **financial contributions** for various causes like education, healthcare, disaster relief, and innovation. It provides a **secure, user-friendly** interface for campaign creation, donation tracking, and real-time updates. The system integrates **Firebase authentication, MongoDB CRUD operations**, and a fully responsive UI.  
 
-**1. Raise Funds Efficiently:** Provide a secure, user-friendly platform for individuals and organizations to donate funds online. Streamline the donation process to maximize contributions for the intended cause.
+---
 
-**2. Increase Awareness:** Highlight the fundraiser's purpose, goals, and impact. Use compelling storytelling, visuals, and testimonials to encourage trust and participation.
+## 🎯 Key Features  
 
-**3. Engage and Mobilize Supporters:** Foster a sense of community by allowing supporters to share the campaign on social media, track progress, and participate in events or challenges related to the cause.
+✅ **User Authentication** – Firebase-based authentication for secure access.  
+✅ **Campaign Management** – Users can create, update, and delete fundraising campaigns.  
+✅ **Donation Collection** – Users can receive and track donations in real time.  
+✅ **Responsive UI** – Fully optimized for desktop, tablet, and mobile users.  
+✅ **Social Media Sharing** – Increase campaign reach through easy social sharing.  
+✅ **Transparency & Reports** – Track how funds are utilized with detailed insights.  
 
-**4. Transparency and Accountability:** Showcase detailed reports on how funds are being used, ensuring donors feel confident about their contributions and the impact they are making.
+---
 
-**5. Expand Reach:** Leverage the power of the internet to reach a global audience, enabling support from individuals and organizations across different geographies and demographics.
+## 📂 Table of Contents  
 
+- [Installation](#installation)  
+- [Configuration](#configuration)  
+- [Usage](#usage)  
+- [Dependencies](#dependencies)  
+- [API Environment Variables](#api-environment-variables)  
+- [Troubleshooting](#troubleshooting)  
+- [License](#license)  
 
-## Key Features of Fund Raiser Campaign Website
-- User Registration and Authentication
-- User Can Create, Delete, & Update the Campaign
-- Responsive and User-Friendly Design
-- User Can Collect Dontaion for Campaign Support
-- Sustainability Focus
+---
 
-## This  Project Use the below NPM Packages
- - React-simple-typewriter
- - React Awesome reveal
- - Hot Toast
- - Swiper
- - React Icons
- - firebase
- - React-Router
+## 🛠️ Installation  
 
+### Prerequisites  
+Ensure you have the following installed on your system:  
 
+- **Node.js** (Latest LTS) → [Download](https://nodejs.org/)  
+- **npm** (or **yarn**) → Installed with Node.js  
+- **Git** → [Download](https://git-scm.com/)  
+
+### Step 1: Clone the Repository  
+
+```sh
+git clone https://github.com/your-repo-link.git
+cd your-repo-folder
+```
+
+### Step 2: Install Dependencies  
+
+Using **npm**:  
+
+```sh
+npm install
+```
+
+or using **yarn**:  
+
+```sh
+yarn install
+```
+
+---
+
+## ⚙️ Configuration  
+
+### 📄 Create a `.env.local` File  
+
+Create a `.env.local` file in the **root** directory and add the following variables:  
+
+```plaintext
+VITE_apiKey=your_api_key
+VITE_authDomain=your_auth_domain
+VITE_projectId=your_project_id
+VITE_storageBucket=your_storage_bucket
+VITE_messagingSenderId=your_messaging_sender_id
+VITE_appId=your_app_id
+VITE_API_URL=your_backend_api_url
+```
+
+**🔒 Important:** Do **not** commit the `.env.local` file to Git. Add it to `.gitignore` to keep your credentials secure.  
+
+---
+
+## 🚀 Usage  
+
+### Step 3: Start the Development Server  
+
+```sh
+npm run dev
+```
+
+The application will be available at **http://localhost:5173/**.  
+
+### Step 4: Build the Project  
+
+To build the project for production:  
+
+```sh
+npm run build
+```
+
+To preview the production build:  
+
+```sh
+npm run preview
+```
+
+---
+
+## 📦 Dependencies  
+
+This project uses the following **npm packages**:  
+
+- **React** – Frontend framework  
+- **React Router** – Navigation and routing  
+- **Firebase** – Authentication and database integration  
+- **React Simple Typewriter** – Typing effect for UI  
+- **React Awesome Reveal** – Beautiful animations  
+- **React Icons** – Icon library for UI elements  
+- **Hot Toast** – Notification system  
+- **Swiper** – Modern slider component  
+
+Install all dependencies with:  
+
+```sh
+npm install
+```
+
+---
+
+## 🌍 API Environment Variables  
+
+These are required for backend API communication and third-party integrations.  
+
+| Variable Name               | Description                             |
+|-----------------------------|-----------------------------------------|
+| `VITE_apiKey`               | Firebase API Key                       |
+| `VITE_authDomain`           | Firebase Auth Domain                   |
+| `VITE_projectId`            | Firebase Project ID                    |
+| `VITE_storageBucket`        | Firebase Storage Bucket                |
+| `VITE_messagingSenderId`    | Firebase Messaging Sender ID           |
+| `VITE_appId`                | Firebase App ID                        |
+| `VITE_API_URL`              | Backend API Base URL                   |
+
+---
+
+## 🛠️ Troubleshooting  
+
+### 1. **Port Already in Use Error**  
+
+If you see `Error: Port 5173 is already in use`, stop the process using:  
+
+```sh
+npx kill-port 5173
+```
+
+Or specify another port in `package.json`:  
+
+```json
+"scripts": {
+  "dev": "vite --port 3000"
+}
+```
+
+### 2. **Backend Not Responding**  
+
+Ensure the backend is running at the specified **`VITE_API_URL`**.  
+
+```sh
+cd backend
+npm start
+```
+
+### 3. **Firebase Authentication Issues**  
+
+- Verify **API keys** are correctly set in `.env.local`.  
+- Check **Firebase console** for authentication setup.  
+- Ensure **Google Sign-In and Email/Password authentication** are enabled.  
+
+---
+
+## 📜 License  
+
+This project is licensed under the **MIT License**.  
