@@ -50,7 +50,7 @@ Ensure you have the following installed on your system:
 ### Step 1: Clone the Repository  
 
 ```sh
-git clone https://github.com/your-repo-link.git
+git clone https://github.com/Rokon-Khan/ph-assignment-10.git
 cd your-repo-folder
 ```
 
